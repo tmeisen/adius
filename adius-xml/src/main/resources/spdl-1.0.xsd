@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns="http://www.adiusframework.org/serviceprovider/xml"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.adiusframework.org/serviceprovider/xml"
+	elementFormDefault="qualified">
+
+	<xs:element name="serviceProviderDefinition">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="binding" type="binding" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="binding">
+		<xs:sequence>
+			<xs:element name="protocol" type="protocol" />
+			<xs:element name="data" type="protocolData" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="protocol">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="JMS" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="protocolData">
+		<xs:choice>
+			<xs:element name="jmsData" type="jmsData" />
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="jmsData">
+		<xs:sequence>
+			<xs:element name="queue" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

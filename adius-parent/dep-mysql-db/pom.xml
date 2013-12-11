@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>adius-parent</artifactId>
+		<groupId>org.adiusframework</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>org.adiusframework.dependencies</groupId>
+	<artifactId>dep-mysql-db</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Dependencies for MySql Database</name>
+	<packaging>pom</packaging>
+
+	<properties>
+		<mysql.version>5.1.13</mysql.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>

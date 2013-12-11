@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>adius-parent</artifactId>
+		<groupId>org.adiusframework</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../adius-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>adius-resourcemanager</artifactId>
+
+	<dependencies>
+
+		<!-- ADIus Framework Dependency Sets -->
+		<dependency>
+			<groupId>org.adiusframework.dependencies</groupId>
+			<artifactId>dep-apachemq</artifactId>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.adiusframework.dependencies</groupId>
+			<artifactId>dep-spring-ltw</artifactId>
+			<type>pom</type>
+		</dependency>
+		
+		<!-- Testing -->
+		<dependency>
+			<groupId>org.adiusframework.dependencies</groupId>
+			<artifactId>dep-test</artifactId>
+			<type>pom</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.adiusframework</groupId>
+			<artifactId>adius-util-core</artifactId>
+			<version>${project.adius.version}</version>
+			<classifier>tests</classifier>
+            <scope>test</scope>
+            <type>jar</type>
+		</dependency>
+
+		<!-- ADIuS Framework Components -->
+		<dependency>
+			<groupId>org.adiusframework</groupId>
+			<artifactId>adius-core-api</artifactId>
+			<version>${project.adius.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.adiusframework</groupId>
+			<artifactId>adius-xml</artifactId>
+			<version>${project.adius.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.adiusframework</groupId>
+			<artifactId>adius-ontology</artifactId>
+			<version>${project.adius.version}</version>
+		</dependency>
+
+		<!-- Spring Dependencies -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-instrument</artifactId>
+			<version>${spring.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+	</dependencies>
+
+</project>

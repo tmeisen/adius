@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+	<bean id="indexer"
+		class="org.adiusframework.serviceregistry.BasicServiceIndexer" />
+
+	<bean id="manager"
+		class="org.adiusframework.serviceregistry.BasicServiceManager"
+		p:indexer-ref="indexer" />
+
+	<bean id="finder"
+		class="org.adiusframework.serviceregistry.BasicServiceFinder"
+		p:indexer-ref="indexer" />
+
+	<bean id="remotedApplication"
+		class="org.adiusframework.serviceregistry.BasicServiceRegistry"
+		p:finder-ref="finder" p:manager-ref="manager" />
+		
+</beans>

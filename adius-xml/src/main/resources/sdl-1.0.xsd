@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns="http://www.adiusframework.org/service/xml"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.adiusframework.org/service/xml"
+	elementFormDefault="qualified">
+
+	<xs:element name="serviceDefinition">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="capability" type="serviceCapability" />
+				<xs:element name="informationmodel" type="xs:string" />
+				<xs:element name="condition" type="resourceRequirementList" />
+				<xs:element name="effect" type="resourceEffectList" />
+				<xs:element name="binding" type="serviceBinding" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="serviceBinding">
+		<xs:sequence>
+			<xs:element name="route" type="xs:string" minOccurs="1"	maxOccurs="1" />
+			<xs:element name="configuration" type="serviceConfiguration" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="serviceCapability">
+		<xs:sequence>
+			<xs:element name="category" type="category" />
+			<xs:element name="subcategory" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="serviceConfiguration">
+		<xs:sequence>
+			<xs:element name="activator" type="activator" />
+			<xs:element name="parameter" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="activator">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="spring" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="category">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="integration" />
+			<xs:enumeration value="extraction" />
+			<xs:enumeration value="analysis" />
+			<xs:enumeration value="generation" />
+			<xs:enumeration value="planning" />
+			<xs:enumeration value="decomposing" />
+			<xs:enumeration value="transformation" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="resourceRequirementList">
+		<xs:sequence>
+			<xs:element name="resourceRequirement" type="resourceRequirement"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="resourceRequirement">
+		<xs:attribute name="capabilityRule" type="xs:string" />
+		<xs:attribute name="types" type="xs:string" />
+		<xs:attribute name="protocols" type="xs:string" use="optional" />
+	</xs:complexType>
+
+	<xs:complexType name="resourceEffectList">
+		<xs:sequence>
+			<xs:element name="resourceEffect" type="resourceEffect"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="resourceEffect">
+		<xs:attribute name="capability" type="xs:string" />
+		<xs:attribute name="type" type="xs:string" />
+		<xs:attribute name="protocol" type="xs:string" use="optional" />
+	</xs:complexType>
+
+</xs:schema>

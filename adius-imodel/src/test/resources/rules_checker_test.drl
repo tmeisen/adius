@@ -1,0 +1,20 @@
+package org.adiusframework.imodel.util
+dialect "java"
+
+//import classes
+import org.adiusframework.imodel.util.ConsistencyCheckerProtocol;
+import org.adiusframework.imodel.util.StringCheckerProtocolEntry;
+import org.adiusframework.imodel.util.TestFact;
+
+//globals
+global ConsistencyCheckerProtocol test_protocol;
+
+// rule
+rule "Are there facts"
+when
+    $a : TestFact( !isValid() )
+    $b : TestFact( !isValid() )
+    eval($a != $b)
+then
+    test_protocol.addEntry(new StringCheckerProtocolEntry("At least two valid entries"));
+end

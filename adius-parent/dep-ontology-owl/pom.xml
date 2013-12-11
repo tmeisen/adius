@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>adius-parent</artifactId>
+		<groupId>org.adiusframework</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>org.adiusframework.dependencies</groupId>
+	<artifactId>dep-ontology-owl</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>Dependencies for OWL Api and Pellet Reasoner</name>
+
+	<properties>
+		<owlapi.version>3.2.4</owlapi.version>
+		<pellet.version>2.2.2</pellet.version>
+	</properties>
+
+	<repositories>
+
+		<repository>
+			<id>Owl Api Repository</id>
+			<url>http://oss.sonatype.org/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>on.cs.unibas.ch</id>
+			<url>http://on.cs.unibas.ch/maven/repository/</url>
+		</repository>
+		
+	</repositories>
+
+	<dependencies>
+
+		<!-- OWL Api -->
+		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>owlapi</artifactId>
+			<version>${owlapi.version}</version>
+		</dependency>
+
+		<!-- Pellet requires an old version of jetty, so we replace it with the 
+			used in the project; same is done with the owlapi -->
+		<dependency>
+			<groupId>com.owldl</groupId>
+			<artifactId>pellet</artifactId>
+			<version>${pellet.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>org.mortbay.jetty</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sourceforge.owlapi</groupId>
+					<artifactId>owlapi</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.mortbay.jetty</groupId>
+			<artifactId>jetty</artifactId>
+			<version>${jetty.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+	</dependencies>
+
+</project>

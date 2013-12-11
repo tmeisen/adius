@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.adiusframework</groupId>
+		<artifactId>adius-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>adius-core-api</artifactId>
+	<description>Core API providing common interfaces and core functionality</description>
+
+	<dependencies>
+
+		<!-- ADIuS Framework Components -->
+		<dependency>
+			<groupId>org.adiusframework</groupId>
+			<artifactId>adius-util-core</artifactId>
+			<version>${project.adius.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.adiusframework</groupId>
+			<artifactId>adius-xml</artifactId>
+			<version>${project.adius.version}</version>
+		</dependency>
+
+	</dependencies>
+
+</project>

@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.adiusframework.org/resourceontology#"
+     xml:base="http://www.adiusframework.org/resourceontology"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://www.adiusframework.org/resourceontology"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.adiusframework.org/resourceontology#Capability -->
+
+    <owl:Class rdf:about="http://www.adiusframework.org/resourceontology#Capability"/>
+    
+
+
+    <!-- http://www.adiusframework.org/resourceontology#DatabaseProtocol -->
+
+    <owl:Class rdf:about="http://www.adiusframework.org/resourceontology#DatabaseProtocol">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.adiusframework.org/resourceontology#MySql"/>
+                    <rdf:Description rdf:about="http://www.adiusframework.org/resourceontology#Oracle"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.adiusframework.org/resourceontology#Protocol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/resourceontology#FileProtocol -->
+
+    <owl:Class rdf:about="http://www.adiusframework.org/resourceontology#FileProtocol">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.adiusframework.org/resourceontology#FTP"/>
+                    <rdf:Description rdf:about="http://www.adiusframework.org/resourceontology#Local"/>
+                    <rdf:Description rdf:about="http://www.adiusframework.org/resourceontology#HTTP"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.adiusframework.org/resourceontology#Protocol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/resourceontology#Protocol -->
+
+    <owl:Class rdf:about="http://www.adiusframework.org/resourceontology#Protocol"/>
+    
+
+
+    <!-- http://www.adiusframework.org/resourceontology#ResourceType -->
+
+    <owl:Class rdf:about="http://www.adiusframework.org/resourceontology#ResourceType">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.adiusframework.org/resourceontology#Directory"/>
+                    <rdf:Description rdf:about="http://www.adiusframework.org/resourceontology#File"/>
+                    <rdf:Description rdf:about="http://www.adiusframework.org/resourceontology#Database"/>
+                    <rdf:Description rdf:about="http://www.adiusframework.org/resourceontology#Object"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.adiusframework.org/resourceontology#Database -->
+
+    <owl:NamedIndividual rdf:about="http://www.adiusframework.org/resourceontology#Database">
+        <rdf:type rdf:resource="http://www.adiusframework.org/resourceontology#ResourceType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.adiusframework.org/resourceontology#Directory -->
+
+    <owl:NamedIndividual rdf:about="http://www.adiusframework.org/resourceontology#Directory">
+        <rdf:type rdf:resource="http://www.adiusframework.org/resourceontology#ResourceType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.adiusframework.org/resourceontology#FTP -->
+
+    <owl:NamedIndividual rdf:about="http://www.adiusframework.org/resourceontology#FTP">
+        <rdf:type rdf:resource="http://www.adiusframework.org/resourceontology#FileProtocol"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.adiusframework.org/resourceontology#File -->
+
+    <owl:NamedIndividual rdf:about="http://www.adiusframework.org/resourceontology#File">
+        <rdf:type rdf:resource="http://www.adiusframework.org/resourceontology#ResourceType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.adiusframework.org/resourceontology#HTTP -->
+
+    <owl:NamedIndividual rdf:about="http://www.adiusframework.org/resourceontology#HTTP">
+        <rdf:type rdf:resource="http://www.adiusframework.org/resourceontology#FileProtocol"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.adiusframework.org/resourceontology#Local -->
+
+    <owl:NamedIndividual rdf:about="http://www.adiusframework.org/resourceontology#Local">
+        <rdf:type rdf:resource="http://www.adiusframework.org/resourceontology#FileProtocol"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.adiusframework.org/resourceontology#MySql -->
+
+    <owl:NamedIndividual rdf:about="http://www.adiusframework.org/resourceontology#MySql">
+        <rdf:type rdf:resource="http://www.adiusframework.org/resourceontology#DatabaseProtocol"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.adiusframework.org/resourceontology#Object -->
+
+    <owl:NamedIndividual rdf:about="http://www.adiusframework.org/resourceontology#Object">
+        <rdf:type rdf:resource="http://www.adiusframework.org/resourceontology#ResourceType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.adiusframework.org/resourceontology#Oracle -->
+
+    <owl:NamedIndividual rdf:about="http://www.adiusframework.org/resourceontology#Oracle">
+        <rdf:type rdf:resource="http://www.adiusframework.org/resourceontology#DatabaseProtocol"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.2.3.1824) http://owlapi.sourceforge.net -->
+

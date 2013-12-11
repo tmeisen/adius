@@ -1,0 +1,2 @@
+serviceClass: org.adiusframework.web.applicationlauncher.shared.WALService
+path: 491D60274DF30ED8EDC034ABCC9411A0.gwt.rpc

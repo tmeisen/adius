@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>adius-parent</artifactId>
+		<groupId>org.adiusframework</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../adius-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>adius-serviceregistry</artifactId>
+
+	<dependencies>
+
+		<!-- ADIuS Framework Components -->
+		<dependency>
+			<groupId>org.adiusframework.service</groupId>
+			<artifactId>adius-service-core</artifactId>
+			<version>${project.adius.version}</version>
+		</dependency>
+
+		<!-- Testing -->
+		<dependency>
+			<groupId>org.adiusframework.dependencies</groupId>
+			<artifactId>dep-test</artifactId>
+			<type>pom</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.adiusframework</groupId>
+			<artifactId>adius-util-core</artifactId>
+			<version>${project.adius.version}</version>
+			<classifier>tests</classifier>
+			<scope>test</scope>
+			<type>jar</type>
+		</dependency>
+
+		<!-- ActiveMQ Dependencies -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+			<version>${activemq.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Temp -->
+		<dependency>
+			<groupId>org.apache.xbean</groupId>
+			<artifactId>xbean-spring</artifactId>
+			<version>3.5</version>
+		</dependency>
+
+		<!-- Spring Dependencies -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+	</dependencies>
+
+</project>

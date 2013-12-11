@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns="http://www.adiusframework.org/processmanager/xml"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:sdl="http://www.adiusframework.org/service/xml"
+	targetNamespace="http://www.adiusframework.org/processmanager/xml"
+	elementFormDefault="qualified">
+
+	<xs:import namespace="http://www.adiusframework.org/service/xml"
+		schemaLocation="http://www.adiusframework.org/xsd/sdl-1.0.xsd" />
+
+	<xs:element name="processDefinition">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="type" type="processType" minOccurs="1" />
+				<xs:element name="tasks" type="tasksType" minOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="processType">
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="aspect" type="aspect" />
+		<xs:attribute name="domain" type="xs:string" use="optional" />
+	</xs:complexType>
+
+	<xs:simpleType name="aspect">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="accessor" />
+			<xs:enumeration value="generator" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="tasksType">
+		<xs:sequence>
+			<xs:element name="task" type="taskType" minOccurs="1"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="taskType">
+		<xs:choice>
+			<xs:element name="serviceTemplate" type="serviceTemplateType" />
+			<xs:element name="serviceProcess" type="serviceProcessType" />
+		</xs:choice>
+		<xs:attribute name="name" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="serviceTemplateType">
+		<xs:attribute name="category" type="sdl:category" />
+		<xs:attribute name="subcategory" type="xs:string" use="optional" />
+	</xs:complexType>
+
+	<xs:complexType name="serviceProcessType">
+	</xs:complexType>
+
+</xs:schema>

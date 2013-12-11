@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<!-- set up context: load time weaving for AOP and annotation based configuration -->
+	<context:load-time-weaver />
+	<context:annotation-config />
+
+	<!-- annotation driven transactions -->
+	<tx:annotation-driven mode="aspectj" />
+	
+	<!-- The Object-To-Xml-Mapper -->
+	<bean id="marshaller"
+		class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="packagesToScan">
+			<list>
+				<value>org.adiusframework.processmanager.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="oxMapper"
+		class="org.adiusframework.util.xml.BasicOxMapper"
+		p:marshaller-ref="marshaller"
+		p:unmarshaller-ref="marshaller" />
+		
+	<!-- The database context -->
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		p:driverClass="${processmanager.integrationtest.db.driver.class}"
+		p:jdbcUrl="jdbc:mysql://${processmanager.integrationtest.database.ip}:${processmanager.integrationtest.database.port}/${processmanager.integrationtest.database.schema}"
+		p:user="${processmanager.integrationtest.database.user}" p:password="${processmanager.integrationtest.database.password}" />
+		
+	<bean id="factory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+		p:dataSource-ref="dataSource"
+		p:configLocation="classpath:/settings/adius-test-pm-hibernate-cfg.xml" />
+		
+	<bean id="pmTransactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+		p:sessionFactory-ref="factory" />
+	
+	<!-- The test ServiceRegistration -->
+	<bean id="processManagerQueue"
+		class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg><value>processmanager.queue</value></constructor-arg>
+	</bean>
+	
+	<bean id="serviceExecutor"
+		class="org.adiusframework.processmanager.SpringJmsRoutingServiceExecutor" 
+		p:replyTo-ref="processManagerQueue" />
+		
+	<bean id="jmsData"
+		class="org.adiusframework.serviceprovider.xml.JmsData" 
+		p:queue="testServiceQueue"/>
+	
+	<bean id="protocolData"
+		class="org.adiusframework.serviceprovider.xml.ProtocolData" 
+		p:jmsData-ref="jmsData" />
+	
+	<bean id="binding"
+		class="org.adiusframework.serviceprovider.xml.Binding"
+		p:protocol="JMS" 
+		p:data-ref="protocolData" />
+	
+	<bean id="serviceProviderDefinition"
+		class="org.adiusframework.serviceprovider.xml.ServiceProviderDefinition" 
+		p:binding-ref="binding" />
+	
+	<bean id="resourceRequirements"
+		class="org.adiusframework.service.xml.ResourceRequirementList" />
+		
+	<bean id="serviceBinding"
+		class="org.adiusframework.service.xml.ServiceBinding"
+		p:route="TestRoute" />
+		
+	<bean id="serviceDefinition"
+		class="org.adiusframework.service.xml.ServiceDefinition" 
+		p:condition-ref="resourceRequirements" 
+		p:binding-ref="serviceBinding" />
+		
+	<bean id="serviceRegistration"
+		class="org.adiusframework.service.BasicServiceRegistration"
+		p:providerDefinition-ref="serviceProviderDefinition"
+		p:serviceDefinition-ref="serviceDefinition" />
+	
+	<!-- The test ServiceProcessDefinition -->
+	<bean id="serviceProcessDefinitionParser"
+		class="org.adiusframework.processmanager.BasicProcessDefinitionParser"
+		p:mapper-ref="oxMapper" />
+	
+	<bean id="testServiceProcessDefinition"
+		class="org.adiusframework.processmanager.ParsedServiceProcessDefinition" 
+		p:definitionUrl="classpath:testServiceProcessDefinition.xml"
+		p:parser-ref="serviceProcessDefinitionParser" />
+		
+	<!-- The test configuration of the ProcessManager-infrastructure -->
+	<bean id="processDefinitionParser"
+		class="org.adiusframework.processmanager.BasicProcessDefinitionParser" 
+		p:mapper-ref="oxMapper" />
+		
+	<bean id="relParser"
+		class="org.adiusframework.processmanager.RegExpRELParser" />
+		
+	<bean id="serviceProcessDao"
+		class="org.adiusframework.processmanager.domain.dao.hibernate.HibernateServiceProcessDao"
+		p:factory-ref="factory" />
+		
+	<bean id="serviceTaskDao"
+		class="org.adiusframework.processmanager.domain.dao.hibernate.HibernateServiceTaskDao"
+		p:factory-ref="factory" />
+		
+	<bean id="repository"
+		class="org.adiusframework.processmanager.BasicProcessManagerRepository"
+		p:serviceProcessDao-ref="serviceProcessDao"
+		p:serviceTaskDao-ref="serviceTaskDao" />
+
+	<bean id="resourceHandler"
+		class="org.adiusframework.processmanager.ProcessManagerIntegrationTest.TestResourceHandler"
+		p:RELParser-ref="relParser" />
+		
+	<bean id="serviceProcessDefinitionFinder"
+		class="org.adiusframework.processmanager.BasicServiceProcessDefinitionFinder" />
+		
+	<bean id="serviceExecutorFactory"
+		class="org.adiusframework.processmanager.ConfigurableServiceExecutorFactory" />
+
+	<bean id="queryExecutionControl"
+		class="org.adiusframework.processmanager.ProcessManagerIntegrationTest.TestQueryExecutionControl"
+		p:repository-ref="repository"
+		p:serviceProcessExecutionControl-ref="serviceProcessExecutionControl"
+		p:resourceHandler-ref="resourceHandler" />
+		
+	<bean id="serviceProcessExecutionControl"
+		class="org.adiusframework.processmanager.ProcessManagerIntegrationTest.TestServiceProcessExecutionControl"
+		p:serviceDefinitionFinder-ref="serviceProcessDefinitionFinder"
+		p:resourceHandler-ref="resourceHandler"
+		p:serviceExecutorFactory-ref="serviceExecutorFactory"
+		p:repository-ref="repository" />
+
+	<bean id="executionEngine"
+		class="org.adiusframework.processmanager.BasicExecutionEngine"
+		p:queryExecutionControl-ref="queryExecutionControl"
+		p:serviceProcessExecutionControl-ref="serviceProcessExecutionControl" />
+	
+	<bean id="callbackRepository"
+		class="org.adiusframework.util.net.BasicCallbackRepository" />
+	
+	<bean id="callbackExecutor"
+		class="org.adiusframework.util.jms.apachemq.ActiveMqCallbackExecutor" />
+
+	<bean id="remotedApplication"
+		class="org.adiusframework.processmanager.BasicProcessManager" 
+		p:executionEngine-ref="executionEngine"
+		p:callbackRepository-ref="callbackRepository"
+		p:callbackExecutor-ref="callbackExecutor" />
+</beans>

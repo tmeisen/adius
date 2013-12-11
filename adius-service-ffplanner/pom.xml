@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>adius-parent</artifactId>
+		<groupId>org.adiusframework</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../adius-parent/pom.xml</relativePath>
+	</parent>
+	<groupId>org.adiusframework.service</groupId>
+	<artifactId>adius-service-ffplanner</artifactId>
+
+	<repositories>
+		<repository>
+			<id>JGraphT Repository</id>
+			<url>http://maven.irisa.fr/artifactory/list/repo/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<dependencies>
+
+		<!-- ADIuS Framework Components -->
+		<dependency>
+			<groupId>org.adiusframework.service</groupId>
+			<artifactId>adius-service-core</artifactId>
+			<version>${project.adius.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.adiusframework</groupId>
+			<artifactId>adius-ontology</artifactId>
+			<version>${project.adius.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>jgrapht</groupId>
+			<artifactId>jgrapht</artifactId>
+			<version>0.8.2</version>
+		</dependency>
+
+	</dependencies>
+
+</project>

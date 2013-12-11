@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>adius-parent</artifactId>
+		<groupId>org.adiusframework</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../adius-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>adius-util-io</artifactId>
+
+	<dependencies>
+
+		<!-- ADIuS components -->
+		<dependency>
+			<groupId>org.adiusframework</groupId>
+			<artifactId>adius-util-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Spring components -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+			<scope>compile</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+            <version>${spring.version}</version>
+			<scope>compile</scope>
+        </dependency>
+
+		<!-- MimeType -->
+		<dependency>
+			<groupId>eu.medsea.mimeutil</groupId>
+			<artifactId>mime-util</artifactId>
+			<version>2.1.3</version>
+		</dependency>
+
+		<!-- FTP client library -->
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+		<!-- Testing -->
+		<dependency>
+			<groupId>org.adiusframework.dependencies</groupId>
+			<artifactId>dep-test</artifactId>
+			<scope>test</scope>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.adiusframework</groupId>
+			<artifactId>adius-util-core</artifactId>
+			<version>${project.adius.version}</version>
+			<classifier>tests</classifier>
+            <scope>test</scope>
+            <type>jar</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,572 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY framework-0 "http://www.adiusframework.org/owl/framework-0.2.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.adiusframework.org/owl/framework-0.2.owl#"
+     xml:base="http://www.adiusframework.org/owl/framework-0.2.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:framework-0="http://www.adiusframework.org/owl/framework-0.2.owl#">
+    <owl:Ontology rdf:about="http://www.adiusframework.org/owl/framework-0.2.owl">
+        <owl:versionInfo rdf:datatype="&xsd;double">0.2</owl:versionInfo>
+        <rdfs:comment rdf:datatype="&xsd;string">The framework ontology.
+All entities referenced by the framework are defined here.</rdfs:comment>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:AnnotationProperty rdf:about="&framework-0;aggregationObjectProperty"/>
+    <owl:AnnotationProperty rdf:about="&framework-0;dbTable"/>
+    <owl:AnnotationProperty rdf:about="&framework-0;dbAttribute"/>
+    <owl:AnnotationProperty rdf:about="&framework-0;singleton"/>
+    <owl:AnnotationProperty rdf:about="&rdfs;comment"/>
+    <owl:AnnotationProperty rdf:about="&framework-0;transformationPropertyName"/>
+    <owl:AnnotationProperty rdf:about="&framework-0;dataProperty"/>
+    <owl:AnnotationProperty rdf:about="&framework-0;dbName"/>
+    <owl:AnnotationProperty rdf:about="&framework-0;dbIDColumn"/>
+    <owl:AnnotationProperty rdf:about="&owl;versionInfo"/>
+    <owl:AnnotationProperty rdf:about="&framework-0;dbNameColumn"/>
+    <owl:AnnotationProperty rdf:about="&framework-0;dbForeignKey"/>
+    <owl:AnnotationProperty rdf:about="&framework-0;dbInverseForeignKey"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#ValueTypeProperty -->
+
+    <owl:ObjectProperty rdf:about="&framework-0;ValueTypeProperty">
+        <rdfs:comment rdf:datatype="&xsd;string">Super class for all value type properties.
+
+Value typ properties are properties that do not point to database rows, but to values that stand for the content of a database field.</rdfs:comment>
+        <rdfs:domain rdf:resource="&framework-0;Object"/>
+        <rdfs:range rdf:resource="&framework-0;ValueType"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#hasNegativeEffect -->
+
+    <owl:ObjectProperty rdf:about="&framework-0;hasNegativeEffect">
+        <rdfs:range rdf:resource="&framework-0;Predicate"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&framework-0;Application"/>
+                    <rdf:Description rdf:about="&framework-0;Transformation"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#hasNegativePrecondition -->
+
+    <owl:ObjectProperty rdf:about="&framework-0;hasNegativePrecondition">
+        <rdfs:range rdf:resource="&framework-0;Predicate"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&framework-0;Application"/>
+                    <rdf:Description rdf:about="&framework-0;Transformation"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#hasOperand -->
+
+    <owl:ObjectProperty rdf:about="&framework-0;hasOperand">
+        <rdfs:comment rdf:datatype="&xsd;string">The property that defines which predicates a logical connective combines.</rdfs:comment>
+        <rdfs:domain rdf:resource="&framework-0;LogicalConnective"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#hasParameter -->
+
+    <owl:ObjectProperty rdf:about="&framework-0;hasParameter">
+        <rdfs:comment rdf:datatype="&xsd;string">Super property for all parameter assertions of applications, transformations, predicates and also quantifiers.
+
+Do not use this property directly, but create subproperties and use them to assert parameters to transformations etc. For these subproperties you can set the transformationPropertyName annotation to define how that property is called when executing the transformation.</rdfs:comment>
+        <rdfs:range rdf:resource="&framework-0;Object"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&framework-0;Application"/>
+                    <rdf:Description rdf:about="&framework-0;Axiom"/>
+                    <rdf:Description rdf:about="&framework-0;Feature"/>
+                    <rdf:Description rdf:about="&framework-0;Transformation"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#hasPositiveEffect -->
+
+    <owl:ObjectProperty rdf:about="&framework-0;hasPositiveEffect">
+        <rdfs:range rdf:resource="&framework-0;Predicate"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&framework-0;Application"/>
+                    <rdf:Description rdf:about="&framework-0;Transformation"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#hasPositivePrecondition -->
+
+    <owl:ObjectProperty rdf:about="&framework-0;hasPositivePrecondition">
+        <rdfs:range rdf:resource="&framework-0;Predicate"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&framework-0;Application"/>
+                    <rdf:Description rdf:about="&framework-0;Transformation"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#isBasedOnConfig -->
+
+    <owl:ObjectProperty rdf:about="&framework-0;isBasedOnConfig">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&framework-0;OntologyConfiguration"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#isBasedOnContext -->
+
+    <owl:ObjectProperty rdf:about="&framework-0;isBasedOnContext">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&framework-0;OntologyConfiguration"/>
+        <rdfs:range rdf:resource="&framework-0;OntologyContext"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#topObjectProperty -->
+
+    <owl:ObjectProperty rdf:about="&owl;topObjectProperty"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#AggregationDataProperty -->
+
+    <owl:DatatypeProperty rdf:about="&framework-0;AggregationDataProperty">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&framework-0;Object"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#AverageValueProperty -->
+
+    <owl:DatatypeProperty rdf:about="&framework-0;AverageValueProperty">
+        <rdfs:subPropertyOf rdf:resource="&framework-0;AggregationDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#MaximumValueProperty -->
+
+    <owl:DatatypeProperty rdf:about="&framework-0;MaximumValueProperty">
+        <rdfs:subPropertyOf rdf:resource="&framework-0;AggregationDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#MinimumValueProperty -->
+
+    <owl:DatatypeProperty rdf:about="&framework-0;MinimumValueProperty">
+        <rdfs:subPropertyOf rdf:resource="&framework-0;AggregationDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#ValueCountProperty -->
+
+    <owl:DatatypeProperty rdf:about="&framework-0;ValueCountProperty">
+        <rdfs:subPropertyOf rdf:resource="&framework-0;AggregationDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#ValueSumProperty -->
+
+    <owl:DatatypeProperty rdf:about="&framework-0;ValueSumProperty">
+        <rdfs:subPropertyOf rdf:resource="&framework-0;AggregationDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#topDataProperty -->
+
+    <owl:DatatypeProperty rdf:about="&owl;topDataProperty"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#And -->
+
+    <owl:Class rdf:about="&framework-0;And">
+        <rdfs:subClassOf rdf:resource="&framework-0;LogicalConnective"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Class representing intersection / a logical AND.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Application -->
+
+    <owl:Class rdf:about="&framework-0;Application">
+        <rdfs:comment rdf:datatype="&xsd;string">The class for all applications in the ontology. They are modelled als instances of this class.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Axiom -->
+
+    <owl:Class rdf:about="&framework-0;Axiom">
+        <rdfs:subClassOf rdf:resource="&framework-0;Predicate"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Collection -->
+
+    <owl:Class rdf:about="&framework-0;Collection">
+        <rdfs:subClassOf rdf:resource="&framework-0;Dataset"/>
+        <rdfs:comment></rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Constant -->
+
+    <owl:Class rdf:about="&framework-0;Constant">
+        <rdfs:subClassOf rdf:resource="&framework-0;Parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Dataset -->
+
+    <owl:Class rdf:about="&framework-0;Dataset">
+        <rdfs:subClassOf rdf:resource="&framework-0;Object"/>
+        <owl:disjointWith rdf:resource="&framework-0;ValueType"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Super class for all classes representing datasets in the database, i.e. a table row.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Exists -->
+
+    <owl:Class rdf:about="&framework-0;Exists">
+        <rdfs:subClassOf rdf:resource="&framework-0;Quantifier"/>
+        <owl:disjointWith rdf:resource="&framework-0;ForAll"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Feature -->
+
+    <owl:Class rdf:about="&framework-0;Feature">
+        <rdfs:subClassOf rdf:resource="&framework-0;Predicate"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Base class for all features. Every feature is modelled as a distinct subclass of this class.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#ForAll -->
+
+    <owl:Class rdf:about="&framework-0;ForAll">
+        <rdfs:subClassOf rdf:resource="&framework-0;Quantifier"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#LogicalConnective -->
+
+    <owl:Class rdf:about="&framework-0;LogicalConnective">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&framework-0;And"/>
+                    <rdf:Description rdf:about="&framework-0;Not"/>
+                    <rdf:Description rdf:about="&framework-0;Or"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&framework-0;Predicate"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Superclass for logical connectives.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Not -->
+
+    <owl:Class rdf:about="&framework-0;Not">
+        <rdfs:subClassOf rdf:resource="&framework-0;LogicalConnective"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Class representing a negation.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Object -->
+
+    <owl:Class rdf:about="&framework-0;Object">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:comment rdf:datatype="&xsd;string">The base class for all objects that represent database datasets or values in the database.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#OntologyConfiguration -->
+
+    <owl:Class rdf:about="&framework-0;OntologyConfiguration">
+        <rdfs:comment rdf:datatype="&xsd;string">Class of the ontology configuration.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#OntologyContext -->
+
+    <owl:Class rdf:about="&framework-0;OntologyContext">
+        <rdfs:comment rdf:datatype="&xsd;string">Class of the ontology context.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Or -->
+
+    <owl:Class rdf:about="&framework-0;Or">
+        <rdfs:subClassOf rdf:resource="&framework-0;LogicalConnective"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Class representing a union / logical OR.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Parameter -->
+
+    <owl:Class rdf:about="&framework-0;Parameter"/>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Predicate -->
+
+    <owl:Class rdf:about="&framework-0;Predicate">
+        <rdfs:comment rdf:datatype="&xsd;string">Base class for all predicates.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Quantifier -->
+
+    <owl:Class rdf:about="&framework-0;Quantifier">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&framework-0;Exists"/>
+                    <rdf:Description rdf:about="&framework-0;ForAll"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&framework-0;Predicate"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Superclass for quantifiers. They can be modelled like transformations with parameters, preconditions and effects.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Transformation -->
+
+    <owl:Class rdf:about="&framework-0;Transformation">
+        <rdfs:comment rdf:datatype="&xsd;string">The class for all transformations in the ontology. They are modelled als instances of this class.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#ValueType -->
+
+    <owl:Class rdf:about="&framework-0;ValueType">
+        <rdfs:subClassOf rdf:resource="&framework-0;Object"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Super class for all value types. Value types are not represented by a database table row, but by a single value in a table row.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Variable -->
+
+    <owl:Class rdf:about="&framework-0;Variable">
+        <rdfs:subClassOf rdf:resource="&framework-0;Parameter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#Thing -->
+
+    <owl:Class rdf:about="&owl;Thing">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&framework-0;isBasedOnConfig"/>
+                <owl:hasValue rdf:resource="&framework-0;Config"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Config -->
+
+    <owl:NamedIndividual rdf:about="&framework-0;Config">
+        <rdf:type rdf:resource="&framework-0;OntologyConfiguration"/>
+        <rdfs:comment rdf:datatype="&xsd;string">The object that describes the configuration of this ontology. The configuration is based on the properties of the Context object.</rdfs:comment>
+        <isBasedOnContext rdf:resource="&framework-0;Context"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.adiusframework.org/owl/framework-0.2.owl#Context -->
+
+    <owl:NamedIndividual rdf:about="&framework-0;Context">
+        <rdf:type rdf:resource="&framework-0;OntologyContext"/>
+        <rdfs:comment rdf:datatype="&xsd;string">This object describes the context of the ontology. The properties are usually set by the application using this ontology, but default values for the properties can be defined directly in the ontology.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&framework-0;And"/>
+            <rdf:Description rdf:about="&framework-0;Not"/>
+            <rdf:Description rdf:about="&framework-0;Or"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&framework-0;Application"/>
+            <rdf:Description rdf:about="&framework-0;Object"/>
+            <rdf:Description rdf:about="&framework-0;OntologyConfiguration"/>
+            <rdf:Description rdf:about="&framework-0;OntologyContext"/>
+            <rdf:Description rdf:about="&framework-0;Predicate"/>
+            <rdf:Description rdf:about="&framework-0;Transformation"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&framework-0;Axiom"/>
+            <rdf:Description rdf:about="&framework-0;Feature"/>
+            <rdf:Description rdf:about="&framework-0;LogicalConnective"/>
+            <rdf:Description rdf:about="&framework-0;Quantifier"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.2.3.1824) http://owlapi.sourceforge.net -->
+

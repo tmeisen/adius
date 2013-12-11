@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<bean id="capabilityRuleValidator"
+		class="org.adiusframework.resourcemanager.OntologyCapabilityRuleValidator" />
+                           
+	<bean id="resourceContainerFactory"
+		class="org.adiusframework.resourcemanager.BasicResourceContainerFactory"
+		p:capabilityRuleValidator-ref="capabilityRuleValidator" />
+	
+	<bean id="hierarchy"
+		class="org.adiusframework.resourcemanager.Hierarchy" 
+		p:rcf-ref="resourceContainerFactory" />
+	
+	<bean id="resourceRepository"
+		class="org.adiusframework.resourcemanager.BasicResourceRepository"
+		p:hierarchy-ref="hierarchy" />
+
+	<bean id="resourceTypeMapper"
+		class="org.adiusframework.resource.BasicResourceTypeMapper" />
+
+	<bean id="converterManager"
+		class="org.adiusframework.resource.ConfigurableConverterManager">
+		<property name="converters">
+			<util:list>
+				<bean class="org.adiusframework.resource.VfsFtpToLocalFileConverter" />
+			</util:list>
+		</property>
+	</bean>
+
+	<bean id="generatorManager"
+		class="org.adiusframework.resource.ConfigurableGeneratorManager">
+		<property name="generators">
+			<util:list>
+				<bean class="org.adiusframework.resource.LocalFileGenerator" />
+			</util:list>
+		</property>
+	</bean>
+
+	<bean id="remotedApplication"
+		class="org.adiusframework.resourcemanager.BasicResourceManager"
+		p:repository-ref="resourceRepository"
+		p:converterManager-ref="converterManager"
+		p:generatorManager-ref="generatorManager"
+		p:resourceTypeMapper-ref="resourceTypeMapper" />
+</beans>

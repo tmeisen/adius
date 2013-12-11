@@ -1,0 +1,18 @@
+
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="false"
+	monitoring="autodetect" dynamicConfig="true">
+
+	<diskStore path="java.io.tmpdir" />
+
+	<defaultCache maxElementsInMemory="1000"
+		maxElementsOnDisk="0" eternal="true" overflowToDisk="true"
+		diskSpoolBufferSizeMB="200" memoryStoreEvictionPolicy="LFU" />
+
+	<cache
+		name="org.adiusframework.service.excel.parser.EhParserResultCacheTest$TestEntity"
+		maxElementsInMemory="10000" maxElementsOnDisk="0" eternal="true"
+		overflowToDisk="true" diskSpoolBufferSizeMB="200"
+		memoryStoreEvictionPolicy="LFU" />
+
+</ehcache>

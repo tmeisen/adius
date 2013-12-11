@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<bean id="processManager" class="org.adiusframework.processmanager.BasicProcessManager"
+		p:executionEngine-ref="executionEngine" p:callbackExecutor-ref="callbackExecutor"
+		p:callbackRepository-ref="callbackRepository" />
+
+	<bean id="callbackRepository" class="org.adiusframework.util.net.BasicCallbackRepository" />
+
+	<bean id="callbackExecutor" class="org.adiusframework.util.net.RoutingCallbackExecutor"
+		p:defaultExecutor-ref="loggingCallbackExecutor">
+		<property name="route">
+			<util:map map-class="java.util.concurrent.ConcurrentHashMap"
+				key-type="java.lang.Class" value-type="org.adiusframework.util.net.CallbackExecutor">
+				<entry key="org.adiusframework.util.jms.JmsCallback"
+					value-ref="activeMqCallbackExecutor" />
+			</util:map>
+		</property>
+	</bean>
+
+	<bean id="loggingCallbackExecutor" class="org.adiusframework.util.net.LoggerCallbackExecutor" />
+
+	<bean id="activeMqCallbackExecutor"
+		class="org.adiusframework.util.jms.apachemq.ActiveMqCallbackExecutor" />
+
+	<bean id="executionEngine" class="org.adiusframework.processmanager.BasicExecutionEngine"
+		p:queryExecutionControl-ref="queryExecutionControl"
+		p:serviceProcessExecutionControl-ref="serviceProcessExecutionControl" />
+
+	<bean id="relParser" class="org.adiusframework.processmanager.RegExpRELParser" />
+
+	<bean id="serviceExecutorFactory"
+		class="org.adiusframework.processmanager.ConfigurableServiceExecutorFactory">
+		<property name="protocolMapping">
+			<util:map key-type="org.adiusframework.serviceprovider.xml.Protocol">
+				<entry key="JMS" value-ref="springJmsRoutingServiceExecutor" />
+			</util:map>
+		</property>
+	</bean>
+
+	<bean id="repository"
+		class="org.adiusframework.processmanager.BasicProcessManagerRepository" />
+
+</beans>

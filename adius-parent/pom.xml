@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.adiusframework</groupId>
+	<artifactId>adius-parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>ADIuS Framework Parent</name>
+
+	<modules>
+		<module>dep-apachemq</module>
+		<module>dep-hibernate-mysql</module>
+		<module>dep-mysql-db</module>
+		<module>dep-ontology-owl</module>
+		<module>dep-spring-integration</module>
+		<module>dep-spring-ltw</module>
+		<module>dep-test</module>
+		<module>dep-test-db</module>
+	</modules>
+
+	<profiles>
+		<profile>
+			<id>all</id>
+			<modules>
+				<module>../adius-console</module>
+				<module>../adius-core-api</module>
+				<module>../adius-ontology</module>
+				<module>../adius-oomapper</module>
+				<module>../adius-pdi-324</module>
+				<module>../adius-pdi-420</module>
+				<module>../adius-pdi-core</module>
+				<module>../adius-processmanager</module>
+				<module>../adius-query</module>
+				<module>../adius-resource</module>
+				<module>../adius-resourcemanager</module>
+				<module>../adius-service-core</module>
+				<module>../adius-service-dataanalyzer</module>
+				<module>../adius-service-ffplanner</module>
+				<module>../adius-service-pddlgenerator</module>
+				<module>../adius-service-pdi</module>
+				<module>../adius-service-statedecomposer</module>
+				<module>../adius-serviceprovider</module>
+				<module>../adius-serviceregistry</module>
+				<module>../adius-util</module>
+				<module>../adius-util-core</module>
+				<module>../adius-util-db</module>
+				<module>../adius-util-io</module>
+				<module>../adius-util-jms</module>
+				<module>../adius-util-reflection</module>
+				<module>../adius-xml</module>
+			</modules>
+		</profile>
+	</profiles>
+
+	<properties>
+
+		<!-- Global project properties -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.adius.version>0.0.1-SNAPSHOT</project.adius.version>
+		<project.java.version>1.7</project.java.version>
+
+		<!-- Centralized dependency version settings -->
+		<dep.database.mysql>0.0.1-SNAPSHOT</dep.database.mysql>
+		<dep.hibernate.mysql>0.0.1-SNAPSHOT</dep.hibernate.mysql>
+		<dep.ontology.owl>0.0.1-SNAPSHOT</dep.ontology.owl>
+		<dep.test>0.0.1-SNAPSHOT</dep.test>
+		<dep.test.db>0.0.1-SNAPSHOT</dep.test.db>
+		<dep.spring.ltw>0.0.1-SNAPSHOT</dep.spring.ltw>
+		<dep.apachemq>0.0.1-SNAPSHOT</dep.apachemq>
+		<dep.spring.integration>0.0.1-SNAPSHOT</dep.spring.integration>
+
+		<!-- Global version properties, because dependencies are used in different 
+			projects -->
+		<javassist.version>3.17.1-GA</javassist.version>
+		<jetty.version>6.1.21</jetty.version>
+		<logging.log4j.version>1.2.16</logging.log4j.version>
+		<logging.slf4j.version>1.7.5</logging.slf4j.version>
+		<hibernate.version>3.6.10.Final</hibernate.version>
+		<junit.version>4.7</junit.version>
+		<powermock.version>1.5</powermock.version>
+		<dbunit.version>2.4.8</dbunit.version>
+		<mockito.version>1.9.5</mockito.version>
+		<spring.version>3.2.4.RELEASE</spring.version>
+		<spring.integration.version>2.2.2.RELEASE</spring.integration.version>
+		<activemq.version>5.5.1</activemq.version>
+		<camel.version>2.7.0</camel.version>
+		<c3p0.version>0.9.1</c3p0.version>
+		<ehcache.version>2.7.2</ehcache.version>
+		<drools.version>5.5.0.Final</drools.version>
+
+	</properties>
+
+	<dependencyManagement>
+
+		<dependencies>
+			<dependency>
+				<groupId>org.adiusframework.dependencies</groupId>
+				<artifactId>dep-mysql-db</artifactId>
+				<version>${dep.database.mysql}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.adiusframework.dependencies</groupId>
+				<artifactId>dep-hibernate-mysql</artifactId>
+				<version>${dep.hibernate.mysql}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.adiusframework.dependencies</groupId>
+				<artifactId>dep-ontology-owl</artifactId>
+				<version>${dep.ontology.owl}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.adiusframework.dependencies</groupId>
+				<artifactId>dep-test</artifactId>
+				<version>${dep.test}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.adiusframework.dependencies</groupId>
+				<artifactId>dep-test-db</artifactId>
+				<version>${dep.test.db}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.adiusframework.dependencies</groupId>
+				<artifactId>dep-spring-ltw</artifactId>
+				<version>${dep.spring.ltw}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.adiusframework.dependencies</groupId>
+				<artifactId>dep-spring-integration</artifactId>
+				<version>${dep.spring.integration}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.adiusframework.dependencies</groupId>
+				<artifactId>dep-apachemq</artifactId>
+				<version>${dep.apachemq}</version>
+				<type>pom</type>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
+
+	<dependencies>
+
+		<!-- Global logging dependencies used by each project of the framework -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${logging.log4j.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${logging.slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${logging.slf4j.version}</version>
+		</dependency>
+
+	</dependencies>
+
+	<distributionManagement>
+		<repository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>org.zlw-ima</id>
+			<url>http://chronos.zlw-ima.rwth-aachen.de/artifactory/xcluster-b1</url>
+		</repository>
+		<snapshotRepository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>org.zlw-ima</id>
+			<url>http://chronos.zlw-ima.rwth-aachen.de/artifactory/xcluster-b1-snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>org.zlw-ima</id>
+			<url>http://chronos.zlw-ima.rwth-aachen.de/artifactory/repo</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<source>${project.java.version}</source>
+					<target>${project.java.version}</target>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

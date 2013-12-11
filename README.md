@@ -1,4 +1,4 @@
 adius
 =====
 
-Adaptive data integration using services (ADIUS)
+Adaptive Data Integration Using Services (ADIUS)

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<processDefinition
+	xmlns="http://www.adiusframework.org/processmanager/xml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.adiusframework.org/processmanager/xml http://www.adiusframework.org/xsd/pdl-1.0.xsd">
+         
+	<type name="test_process" aspect="accessor" />
+	
+	<tasks>
+		<task name="TestTaskTypeName">
+			<serviceTemplate category="integration" subcategory="TestSubCategory" />
+		</task>
+	</tasks>
+	
+</processDefinition>
